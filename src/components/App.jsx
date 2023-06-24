@@ -1,5 +1,9 @@
 import React, {Component} from "react";
-import {Container, ButtonList, StatisticList} from './App.styled'
+import {Container} from './App.styled';
+import Statisytics from "./Statistics/Statistics";
+import FeedbackOptions from "./FeedbackOptions/FeedbackOptions";
+import Section from "./Section/Section";
+import Notification from "./Notification/Notification";
 
 class App extends Component {
 state = {
@@ -8,47 +12,47 @@ state = {
   bad: 0
 }
 
-handleClick = e => {
-  const {name} = e.target;
-
+handleClick = option => {
   this.setState(prevState => ({
-    [name]: prevState[name] + 1,
+    [option]: prevState[option] + 1,
   })
   )
-  console.log(e.target);
-  console.log(this.state.good)
+}
+
+countTotalFeedback = () => {
+  return this.state.good + this.state.neutral + this.state.bad;
+}
+
+countPositiveFeedbackPercentage = () => {
+
+  return (this.countTotalFeedback() === 0) ? 0 : ((this.state.good / this.countTotalFeedback()) * 100).toFixed(1)
+  
 }
 render() {
 return (
   <Container>
-    <div>
-      <h2>Please leave feedback</h2>
-      <ButtonList>
-        <li>
-          <button type="button" name="good" onClick={this.handleClick}>Good</button>
-        </li>
-        <li>
-          <button type="button" name="neutral" onClick={this.handleClick}>Neutral</button>
-        </li>
-        <li>
-          <button type="button" name="bad" onClick={this.handleClick}>Bad</button>
-        </li>
-      </ButtonList>
-    </div>
-    <div>
-    <h2>Statisytics</h2>
-      <StatisticList>
-        <li>
-          <p>Good: {this.state.good} </p>
-        </li>
-        <li>
-          <p>Neutral: {this.state.neutral}</p>
-        </li>
-        <li>
-          <p>Bad: {this.state.bad}</p>
-        </li>
-      </StatisticList>
-    </div>
+    <Section 
+    title={'Please leave feedback'} 
+    children={
+    <FeedbackOptions 
+      options={Object.keys(this.state)}
+      onLeaveFeedback={this.handleClick}
+      />}
+    />
+      
+    <Section 
+    title={"Statystics"}
+    children={ 
+      this.countTotalFeedback() === 0 ?
+      (<Notification message={"There is no feedback"} />) :
+      (<Statisytics 
+    good={this.state.good}
+    neutral={this.state.neutral}
+    bad={this.state.bad}
+    total={this.countTotalFeedback()}
+    positivePercentage={this.countPositiveFeedbackPercentage()} />)
+    }/>
+    
   </Container>
 )
 }
