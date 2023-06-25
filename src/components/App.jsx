@@ -32,26 +32,24 @@ render() {
 return (
   <Container>
     <Section 
-    title={'Please leave feedback'} 
-    children={
+    title={'Please leave feedback'}/>
     <FeedbackOptions 
       options={Object.keys(this.state)}
       onLeaveFeedback={this.handleClick}
-      />}
     />
       
     <Section 
-    title={"Statystics"}
-    children={ 
-      this.countTotalFeedback() === 0 ?
+    title={"Statystics"} />
+      {this.countTotalFeedback() === 0 ?
       (<Notification message={"There is no feedback"} />) :
       (<Statisytics 
     good={this.state.good}
     neutral={this.state.neutral}
     bad={this.state.bad}
     total={this.countTotalFeedback()}
-    positivePercentage={this.countPositiveFeedbackPercentage()} />)
-    }/>
+    positivePercentage={this.countPositiveFeedbackPercentage()} />)}
+    
+    
     
   </Container>
 )
