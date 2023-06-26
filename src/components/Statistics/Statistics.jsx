@@ -1,10 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { StatisticList} from './Statistics.styled'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { StatisticList } from './Statistics.styled';
 
-const Statisytics = ({good, neutral, bad, total, positivePercentage=0}) => {
-return (
-   <div>
+const Statisytics = ({ good, neutral, bad, total, positivePercentage = 0 }) => {
+  return (
+    <div>
       <StatisticList>
         <li>
           <p>Good: {good} </p>
@@ -17,18 +17,20 @@ return (
         </li>
       </StatisticList>
       <p>Total: {total}</p>
-      <p>Positive feedback: 
-        {positivePercentage}%</p>
+      <p>
+        Positive feedback:
+        {positivePercentage}%
+      </p>
     </div>
-)
-}
+  );
+};
 
 Statisytics.propTypes = {
-  good: PropTypes.number,
-  neutral: PropTypes.number,
-  bad: PropTypes.number,
-  total: PropTypes.number,
-  positivePercentage: PropTypes.number,
-}
+  good: PropTypes.number.isRequired,
+  neutral: PropTypes.number.isRequired,
+  bad: PropTypes.number.isRequired,
+  total: PropTypes.number.isRequired,
+  positivePercentage: PropTypes.number.isRequired,
+};
 
 export default Statisytics;
